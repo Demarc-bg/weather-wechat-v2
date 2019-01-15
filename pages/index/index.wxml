@@ -2,5 +2,17 @@
   <view class="temp">{{nowTemp}}</view>
   <view class="weather-description">{{nowWeather}} </view>
   <image class="weather-bg" src="{{nowSrc}}" mode="scaleToFill"></image>
-
 </view>
+<view class='future'>
+  <view class='future-weather-title'>未来24小时天气预测</view>
+  <view class='future-weather-icon' src=''></view>
+</view>
+<scroll-view scroll-x>
+  <view class='forecast-list'>
+    <view class='forecast-item' wx:for="{{forecast}}">
+      <view class='forecast-time'>{{item}}</view>
+      <image class='forecast-icon' src='/images/cloudy-icon.png'></image>
+      <view class='forecast-temp'>{{item}}</view>
+    </view>
+  </view>
+</scroll-view>
