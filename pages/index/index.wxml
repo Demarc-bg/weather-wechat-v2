@@ -1,18 +1,33 @@
 <view class='weather-wrapper'>
+  <view class='location-wrapper'>
+    <view class='location'>
+      <image class='location-icon' src="/images/location-icon.png"></image>
+      <view class='location-text'>广州市</view>
+
+    </view>
+    <view class='location-tips'>点击这里</view>
+
+  </view>
   <view class="temp">{{nowTemp}}</view>
   <view class="weather-description">{{nowWeather}} </view>
   <image class="weather-bg" src="{{nowSrc}}" mode="scaleToFill"></image>
+  <view class='dateAndHighLow' bindtap='onTapTodayWeather'>
+    <view class='date'>{{nowDate}}</view>
+    <view class='highLow'>{{highLow}}</view>
+    <image class='arrow-icon' src='/images/arrow.png'></image>
+  </view>
 </view>
+
 <view class='future'>
   <view class='future-weather-title'>未来24小时天气预测</view>
-  <view class='future-weather-icon' src=''></view>
 </view>
+
 <scroll-view scroll-x>
   <view class='forecast-list'>
-    <view class='forecast-item' wx:for="{{forecast}}">
-      <view class='forecast-time'>{{item}}</view>
-      <image class='forecast-icon' src='/images/cloudy-icon.png'></image>
-      <view class='forecast-temp'>{{item}}</view>
+    <view class='forecast-item' wx:for="{{hourlyWeather}}">
+      <view class='forecast-time'>{{item.time}}</view>
+      <image class='forecast-icon' src='{{item.iconPath}}'></image>
+      <view class='forecast-temp'>{{item.temp}}</view>
     </view>
   </view>
 </scroll-view>

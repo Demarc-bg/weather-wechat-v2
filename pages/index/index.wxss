@@ -16,7 +16,7 @@
 
 .weather-wrapper {
   position: relative;
-  padding-top: 174rpx;
+  padding-top: 20rpx;
   padding-bottom: 250rpx;
 }
 
@@ -27,6 +27,59 @@
   width: 100%;
   height: 100%;
   z-index: -1;
+}
+
+.location-wrapper {
+  margin-bottom: 60 rpx;
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+
+.location {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.location-text {
+  opacity: 0.9;
+}
+
+.location-icon {
+  margin-right: 10rpx;
+  width: 21rpx;
+  height: 30rpx;
+}
+
+.location-tips {
+  margin-top: 10 rpx;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.dateAndHighLow {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 0;
+  left: 40rpx;
+  right: 40rpx;
+  height: 90rpx;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  font-size: 30rpx;
+  line-height: 42rpx;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.highLow {
+  flex-grow: 1;
+  padding-left: 30rpx;
+  text-align: right;
+}
+
+.arrow-icon {
+  width: 13rpx;
+  height: 24rpx;
 }
 
 .future {
@@ -63,7 +116,7 @@
 .forecast-icon {
   margin-top: 50rpx;
   width: 60rpx;
-  height:60rpx;
+  height: 60rpx;
 }
 
 .forecast-temp {

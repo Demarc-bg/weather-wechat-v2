@@ -16,14 +16,22 @@ const weatherColorMap = {
   'snow': '#aae1fc'
 }
 
-
 Page({
   data: {
     nowTemp: '1',
     nowWeather: '阴天',
     nowSrc: "/images/sunny-bg.png",
-    forecast: [1,2,3,4,5,6,7,8]
+    nowDate:'',
+    highLow:'',
+    hourlyWeather: []
   },
+  onTapTodayWeather(){
+    wx.showToast()
+    wx.navigateTo({
+      url: '/pages/list/list',
+    })
+  }
+  ,
   onPullDownRefresh() {
     this.getNow(
         ()=>{wx.stopPullDownRefresh()}  
@@ -41,35 +49,49 @@ Page({
       success: res => {
         console.log(res)
         let result = res.data.result
-        let temp = result.now.temp
-        let weather = result.now.weather
-        //console.log(temp, weather)
-        // var item = [
-        //   { "temp": "", "day": "1" },
-        //   { "temp": "", "day": "2" },
-        //   { "temp": "", "day": "3" },
-        //   { "temp": "", "day": "4" },
-        //   { "temp": "", "day": "5" },
-        //   { "temp": "", "day": "6" },
-        //   { "temp": "", "day": "7" },
-        //   { "temp": "", "day": "8" },
-        // ]
-        var item = result.forecast
-        console.log(item[0].temp)
-        this.setData({
-          nowTemp: temp,
-          nowWeather: weatherMap[weather],
-          nowSrc: "/images/" + weather + "-bg.png"
-        })
-        wx.setNavigationBarColor({
-          frontColor: '#000000',
-          backgroundColor: weatherColorMap[weather],
-        })
+        this.setNow(result)
+        this.setHourlyWeather(result)
+        this.setDateAndHL(result)
       },
       complete: ()=>{
         callback&&callback()
       }
-
     })
+  },  
+  setNow(result){
+    let temp = result.now.temp
+    let weather = result.now.weather
+    this.setData({
+      nowTemp: temp,
+      nowWeather: weatherMap[weather],
+      nowSrc: "/images/" + weather + "-bg.png"
+    })
+    wx.setNavigationBarColor({
+      frontColor: '#000000',
+      backgroundColor: weatherColorMap[weather],
+    })
+  },
+  setDateAndHL(result) {
+    let thisday = new Date()
+    this.setData({
+      nowDate: `${thisday.getFullYear()}-${thisday.getMonth() + 1}-${thisday.getDate()} 今天`,
+      highLow: result.today.minTemp + '°-' + result.today.maxTemp + `°`
+    })
+  },
+  setHourlyWeather(result){
+    console.log(new Date().getFullYear())
+    //set hourlyWeather
+    let hourlyWeather = []
+    let nowHour = new Date().getHours()
+    //**using i=0 i++ is more readable
+    for (let i = 0; i < 8; i++) {
+      hourlyWeather.push({
+        time: (i * 3 + nowHour) % 24 + '时',
+        iconPath: '/images/' + result.forecast[i].weather + '-icon.png',
+        temp: result.forecast[i].temp
+      })
+    }
+    this.setData({ hourlyWeather })
   }
+  
 })
