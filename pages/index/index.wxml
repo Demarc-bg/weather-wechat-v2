@@ -5,7 +5,7 @@
       <view class='location-text'>广州市</view>
 
     </view>
-    <view class='location-tips'>点击这里</view>
+    <view class='location-tips' bindtap='onTapLocation'>点击这里</view>
 
   </view>
   <view class="temp">{{nowTemp}}</view>

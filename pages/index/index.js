@@ -18,6 +18,7 @@ const weatherColorMap = {
 
 Page({
   data: {
+    locationCity:[],
     nowTemp: '1',
     nowWeather: '阴天',
     nowSrc: "/images/sunny-bg.png",
@@ -30,8 +31,14 @@ Page({
     wx.navigateTo({
       url: '/pages/list/list',
     })
-  }
-  ,
+  },
+  onTapLocation(){
+    wx.getLocation({
+      success: function(res) {
+        console.log(res.latitude, res.longitude)
+      }
+    })
+  },
   onPullDownRefresh() {
     this.getNow(
         ()=>{wx.stopPullDownRefresh()}  
@@ -50,10 +57,10 @@ Page({
         console.log(res)
         let result = res.data.result
         this.setNow(result)
-        this.setHourlyWeather(result)
         this.setDateAndHL(result)
+        this.setHourlyWeather(result)
       },
-      complete: ()=>{
+      complete:()=>{
         callback&&callback()
       }
     })
@@ -93,5 +100,7 @@ Page({
     }
     this.setData({ hourlyWeather })
   }
+
+
   
 })
